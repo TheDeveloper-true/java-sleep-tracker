@@ -9,10 +9,9 @@ public class MaxSleepCalculator implements Function<List<SleepingSession>, Sleep
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
-        OptionalLong maxSleepingDuration = sleepingSessions.stream()
+        OptionalLong maxSleepingDuration = OptionalLong.of(sleepingSessions.stream()
                 .mapToLong(SleepingSession::getSleepingSessionDuration)
-                .max();
-        long result = maxSleepingDuration.orElse((0));
-        return new SleepAnalysisResult(description, result);
+                .max().orElse(0));
+        return new SleepAnalysisResult(description, maxSleepingDuration.getAsLong());
     }
 }

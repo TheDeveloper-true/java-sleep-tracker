@@ -9,10 +9,9 @@ public class MinSleepCalculator implements Function<List<SleepingSession>, Sleep
 
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
-        OptionalLong minSleepingDuration = sleepingSessions.stream()
+        OptionalLong minSleepingDuration = OptionalLong.of(sleepingSessions.stream()
                 .mapToLong(SleepingSession::getSleepingSessionDuration)
-                .min();
-        long result = minSleepingDuration.orElse(0);
-        return new SleepAnalysisResult(description, result);
+                .min().orElse(0));
+        return new SleepAnalysisResult(description, minSleepingDuration.getAsLong());
     }
 }
