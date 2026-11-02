@@ -3,7 +3,6 @@ package ru.yandex.practicum.sleeptracker;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class SleepingSession {
     private final LocalDate startDate;
@@ -11,19 +10,14 @@ public class SleepingSession {
     private final LocalTime startTime;
     private final LocalTime finishTime;
     private final SleepQuality quality;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
 
-    public SleepingSession(String strFromFile) {
-        String[] parts = strFromFile.split(";");
-        String startPart = parts[0];
-        String finishPart = parts[1];
-        String[] startParts = startPart.split(" ");
-        String[] finishParts = finishPart.split(" ");
-        this.startDate = LocalDate.parse(startParts[0], formatter);
-        this.startTime = LocalTime.parse(startParts[1]);
-        this.finishDate = LocalDate.parse(finishParts[0], formatter);
-        this.finishTime = LocalTime.parse(finishParts[1]);
-        this.quality = SleepQuality.valueOf(parts[2]);
+    public SleepingSession(LocalDate startDate, LocalDate finishDate, LocalTime startTime, LocalTime finishTime,
+                           SleepQuality quality) {
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.finishDate = finishDate;
+        this.finishTime = finishTime;
+        this.quality = quality;
     }
 
     public long getSleepingSessionDuration() {

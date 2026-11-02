@@ -5,12 +5,13 @@ import java.util.OptionalDouble;
 import java.util.function.Function;
 
 public class AverageSleepCalculator implements Function<List<SleepingSession>, SleepAnalysisResult> {
+    private final String description = "Средняя продолжительность сна (в минутах)";
+
     @Override
     public SleepAnalysisResult apply(List<SleepingSession> sleepingSessions) {
-        OptionalDouble averageDuration = sleepingSessions.stream()
+        OptionalDouble averageDuration = OptionalDouble.of(sleepingSessions.stream()
                 .mapToLong(SleepingSession::getSleepingSessionDuration)
-                .average();
-        double result = averageDuration.orElse(0.0);
-        return new SleepAnalysisResult("Средняя продолжительность сна (в минутах)", result);
+                .average().orElse(0.0));
+        return new SleepAnalysisResult(description, averageDuration.getAsDouble());
     }
 }

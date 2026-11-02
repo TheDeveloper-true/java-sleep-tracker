@@ -19,12 +19,6 @@ public class SleepAnalysisResult {
 
     @Override
     public String toString() {
-        boolean isInteger = (value % 1) == 0;// проверка на long/double сделана с помощью ИИ
-        String formattedValue;
-        if (isInteger)
-            formattedValue = String.valueOf((long) value);
-        else
-            formattedValue = String.valueOf(value);
-        return description + ": " + formattedValue;
+        return description + ": " + value;
     }
 }

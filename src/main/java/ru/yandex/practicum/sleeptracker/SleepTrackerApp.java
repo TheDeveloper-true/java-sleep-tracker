@@ -35,26 +35,28 @@ public class SleepTrackerApp {
         List<SleepingSession> sessions;
         try (InputStream inputStream = resource.openStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             sessions = reader.lines()
-                    .map(SleepingSession::new)
+                    .map(SessionParser::parser)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (sessions.isEmpty())
+        if (sessions.isEmpty()) {
             System.out.println("Список пуст");
-        else
+        } else {
             analyzers
                     .forEach(analyzer -> {
                         SleepAnalysisResult result = analyzer.apply(sessions);
-                        if (result.getDescription().equals("Количество сессий с плохим качеством сна: "))
-                            if (result.getValue() == 0)
+                        if (result.getDescription().equals("Количество сессий с плохим качеством сна: ")) {
+                            if (result.getValue() == 0) {
                                 System.out.println("В наблюдаемый период времени вы спали хорошо");
-                            else
+                            } else {
                                 System.out.println(result);
-                        else if (result.getDescription().contains("Пользователь -"))
+                            }
+                        } else if (result.getDescription().contains("Пользователь -")) {
                             System.out.println(result.getDescription());
-                        else
+                        } else
                             System.out.println(result);
                     });
+        }
     }
 }

@@ -17,12 +17,13 @@ public class TypeOfCustomer implements Function<List<SleepingSession>, SleepAnal
                 .filter(session -> session.getStartTime().isBefore(LocalTime.of(22, 0)) &&
                         session.getFinishTime().isBefore(LocalTime.of(7, 0)))
                 .toList();
-        if (owlNightsList.size() > larkNightsList.size())
+        if (owlNightsList.size() > larkNightsList.size()) {
             description = "Пользователь - сова";
-        else if (owlNightsList.size() < larkNightsList.size())
+        } else if (owlNightsList.size() < larkNightsList.size()) {
             description = "Пользователь - жаворонок";
-        else
+        } else {
             description = "Пользователь - голубь";
+        }
         return new SleepAnalysisResult(description, result);
     }
 }
