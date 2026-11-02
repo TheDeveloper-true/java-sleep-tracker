@@ -20,9 +20,9 @@ public class MinSleepCalculatorTest {
 
     @Test
     void countMinDurationFor3Sessions() {
-        sessions.add(new SleepingSession("01.10.25 23:15;02.10.25 07:30;GOOD"));
-        sessions.add(new SleepingSession("02.10.25 23:50;03.10.25 06:40;NORMAL"));
-        sessions.add(new SleepingSession("05.10.25 13:30;05.10.25 14:15;NORMAL"));
+        sessions.add(SessionParser.parser("01.10.25 23:15;02.10.25 07:30;GOOD"));
+        sessions.add(SessionParser.parser("02.10.25 23:50;03.10.25 06:40;NORMAL"));
+        sessions.add(SessionParser.parser("05.10.25 13:30;05.10.25 14:15;NORMAL"));
         SleepAnalysisResult result = counter.apply(sessions);
         assertEquals(45, result.getValue());
     }

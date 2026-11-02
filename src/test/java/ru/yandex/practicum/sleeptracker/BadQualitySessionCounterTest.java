@@ -20,9 +20,9 @@ public class BadQualitySessionCounterTest {
 
     @Test
     void countMaxDurationFor3SessionsWith1Bad() {
-        sessions.add(new SleepingSession("01.10.25 23:15;02.10.25 07:30;GOOD"));
-        sessions.add(new SleepingSession("02.10.25 23:50;03.10.25 06:40;BAD"));
-        sessions.add(new SleepingSession("05.10.25 13:30;05.10.25 14:15;NORMAL"));
+        sessions.add(SessionParser.parser("01.10.25 23:15;02.10.25 07:30;GOOD"));
+        sessions.add(SessionParser.parser("02.10.25 23:50;03.10.25 06:40;BAD"));
+        sessions.add(SessionParser.parser("05.10.25 13:30;05.10.25 14:15;NORMAL"));
         SleepAnalysisResult result = counter.apply(sessions);
         assertEquals(1, result.getValue());
     }
@@ -35,9 +35,9 @@ public class BadQualitySessionCounterTest {
 
     @Test
     void countMaxDurationFor3GoodSession() {
-        sessions.add(new SleepingSession("01.10.25 23:15;02.10.25 07:30;GOOD"));
-        sessions.add(new SleepingSession("02.10.25 23:50;03.10.25 06:40;GOOD"));
-        sessions.add(new SleepingSession("05.10.25 13:30;05.10.25 14:15;NORMAL"));
+        sessions.add(SessionParser.parser("01.10.25 23:15;02.10.25 07:30;GOOD"));
+        sessions.add(SessionParser.parser("02.10.25 23:50;03.10.25 06:40;GOOD"));
+        sessions.add(SessionParser.parser("05.10.25 13:30;05.10.25 14:15;NORMAL"));
         SleepAnalysisResult result = counter.apply(sessions);
         assertEquals(valueForEmptyList, result.getValue());
     }

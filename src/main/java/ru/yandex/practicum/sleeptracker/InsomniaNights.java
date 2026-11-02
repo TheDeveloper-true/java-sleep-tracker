@@ -13,25 +13,25 @@ public class InsomniaNights implements Function<List<SleepingSession>, SleepAnal
 
         double value = sleepingSessions.stream()//Написано со значительной помощью ИИ
                 .map(SleepingSession::getStartDate)
-                        .collect(Collectors.toSet())
-                        .stream()
-                       .filter(date -> {
-                            boolean hasNightSleep = sleepingSessions.stream()
-                                    .filter(session -> session.getStartDate().equals(date))
-                                    .anyMatch(session -> {
-                                        if (!session.getStartDate().equals(session.getFinishDate())) {
-                                            return true;
-                                        }
-                                        LocalTime start = session.getStartTime();
-                                        LocalTime finish = session.getFinishTime();
-                                        LocalTime sixAm = LocalTime.of(6, 0);
-                                        LocalTime midnight = LocalTime.of(0, 0);
-                                        return start.isBefore(sixAm) && finish.isAfter(midnight);
-                                    });
+                .collect(Collectors.toSet())
+                .stream()
+                .filter(date -> {
+                    boolean hasNightSleep = sleepingSessions.stream()
+                            .filter(session -> session.getStartDate().equals(date))
+                            .anyMatch(session -> {
+                                if (!session.getStartDate().equals(session.getFinishDate())) {
+                                    return true;
+                                }
+                                LocalTime start = session.getStartTime();
+                                LocalTime finish = session.getFinishTime();
+                                LocalTime sixAm = LocalTime.of(6, 0);
+                                LocalTime midnight = LocalTime.of(0, 0);
+                                return start.isBefore(sixAm) && finish.isAfter(midnight);
+                            });
 
-                            return !hasNightSleep;
-                        })
-                        .count();
+                    return !hasNightSleep;
+                })
+                .count();
 
         return new SleepAnalysisResult(description, value);
     }

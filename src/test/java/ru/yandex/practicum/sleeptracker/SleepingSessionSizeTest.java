@@ -26,9 +26,9 @@ public class SleepingSessionSizeTest {
 
     @Test
     public void sleepingSessionCountWith3Sessions() {
-        sessions.add(new SleepingSession("01.10.25 23:15;02.10.25 07:30;GOOD"));
-        sessions.add(new SleepingSession("02.10.25 23:50;03.10.25 06:40;NORMAL"));
-        sessions.add(new SleepingSession("03.10.25 14:10;03.10.25 15:00;NORMAL"));
+        sessions.add(SessionParser.parser("01.10.25 23:15;02.10.25 07:30;GOOD"));
+        sessions.add(SessionParser.parser("02.10.25 23:50;03.10.25 06:40;NORMAL"));
+        sessions.add(SessionParser.parser("03.10.25 14:10;03.10.25 15:00;NORMAL"));
         SleepAnalysisResult result = counter.apply(sessions);
         assertEquals(3, result.getValue());
     }
